@@ -1,18 +1,31 @@
 import './App.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import TodoItem from './TodoItem';
 
+async function fetchTodos() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos');
+  const data = await res.json();
+  return data
+    .slice(0, 20);
+}
+
 function App() {
   const [todos, setTodos] = useState([
-    { id: 123, title: 'AAA', completed: false },
-    { id: 456, title: 'BBB', completed: true },
-    { id: 789, title: 'CCC', completed: false },
+    // { id: 123, title: 'AAA', completed: false },
+    // { id: 456, title: 'BBB', completed: true },
+    // { id: 789, title: 'CCC', completed: false },
   ]);
   const [newTodo, setNewTodo] = useState('ABC');
   const [allChecked, setAllChecked] = useState(false);
   const editingId = -1;
+
+  useEffect(() => {
+    fetchTodos().then((newTodos) => {
+      setTodos(newTodos);
+    });
+  }, []);
 
   /** 
    * @param {SubmitEvent} event 

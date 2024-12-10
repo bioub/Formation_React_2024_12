@@ -1,0 +1,26 @@
+.Select {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.value {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.menu {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* position: absolute; */
+  background-color: white;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.item {
+  padding: 5px;
+  box-sizing: border-box;
+}
