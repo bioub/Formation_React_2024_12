@@ -162,7 +162,7 @@ Au click cocher/décocher toutes les checkboxes de `TodoItem`.
 Créer la fonction suivante dans App :
 
 ```
-async function fetchTodos(): Promise<Todo[]> {
+async function fetchTodos() {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos');
   const data = await res.json();
   return data
