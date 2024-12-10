@@ -1,19 +1,35 @@
 import './App.css';
 
+import { useState } from 'react';
+
 import TodoItem from './TodoItem';
 
 function App() {
-  const todos = [
+  const [todos, setTodos] = useState([
     { id: 123, title: 'AAA', completed: false },
     { id: 456, title: 'BBB', completed: true },
     { id: 789, title: 'CCC', completed: false },
-  ];
+  ]);
+  const [newTodo, setNewTodo] = useState('ABC');
   const editingId = -1;
+
+  /** 
+   * @param {SubmitEvent} event 
+   */
+  function handleSubmit(event) {
+    event.preventDefault();
+    setTodos([...todos, { id: Date.now(), title: newTodo, completed: false }]);
+    setNewTodo('');
+  }
+
+  function handleAllChecked(e) {
+    setTodos(todos.map(todo => ({ ...todo, completed: e.target.checked })))
+  } 
   return (
     <>
-      <form className="todos-form">
-        <input type="checkbox" className="todos-toggle-checked" />
-        <input type="text" className="todos-new-input" />
+      <form className="todos-form" onSubmit={handleSubmit}>
+        <input type="checkbox" className="todos-toggle-checked" onChange={handleAllChecked} />
+        <input type="text" className="todos-new-input" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
         <button>+</button>
       </form>
       <div className="todos-container">
