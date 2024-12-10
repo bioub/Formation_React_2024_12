@@ -11,6 +11,7 @@ function App() {
     { id: 789, title: 'CCC', completed: false },
   ]);
   const [newTodo, setNewTodo] = useState('ABC');
+  const [allChecked, setAllChecked] = useState(false);
   const editingId = -1;
 
   /** 
@@ -23,12 +24,13 @@ function App() {
   }
 
   function handleAllChecked(e) {
+    setAllChecked(e.target.checked)
     setTodos(todos.map(todo => ({ ...todo, completed: e.target.checked })))
   } 
   return (
     <>
       <form className="todos-form" onSubmit={handleSubmit}>
-        <input type="checkbox" className="todos-toggle-checked" onChange={handleAllChecked} />
+        <input type="checkbox" className="todos-toggle-checked" checked={allChecked} onChange={handleAllChecked} />
         <input type="text" className="todos-new-input" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
         <button>+</button>
       </form>
