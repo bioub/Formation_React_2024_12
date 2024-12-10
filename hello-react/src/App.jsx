@@ -1,17 +1,17 @@
 import './App.css'
 
-import viteLogo from '/vite.svg'
-import { useState } from 'react'
-
-import reactLogo from './assets/react.svg'
+import Counter from './Counter'
 import Hello from './Hello'
+import List from './List';
 
 function App() {
-  const [count, setCount] = useState(0)
  
+  console.log('App');
   return (
     <>
       <Hello name="Toto" />
+      <Counter />
+      <List />
     </>
   )
 }
