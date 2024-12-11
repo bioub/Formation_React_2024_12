@@ -5,11 +5,15 @@
   * @param {number} props.todo.id
   * @param {string} props.todo.title
   * @param {boolean} props.todo.completed
+  * @param {Function} props.onEdit
   * @returns {import('react').ReactNode}
  */
-function TodoSpanValue({ todo }) {
+function TodoSpanValue({ todo, onEdit }) {
+  function handleDoubleClick() {
+    onEdit(todo.id);
+  }
   return (
-    <span className="todosSpanValue">{todo.title}</span>
+    <span className="todosSpanValue" onDoubleClick={handleDoubleClick}>{todo.title}</span>
   );
 }
 
