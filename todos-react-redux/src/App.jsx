@@ -1,10 +1,10 @@
 import './App.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addTodo, updateNewTodo } from './store/actions';
-import { newTodoSelector, todosDataSelector } from './store/selectors';
+import { addTodo, deleteTodo, setAllTodos, setEditingId, toggleCheckedAllTodo, updateNewTodo, updateTodo } from './store/actions';
+import { editingIdSelector, newTodoSelector, todosDataSelector, togglerCheckedAllSelector } from './store/selectors';
 import TodoItem from './TodoItem';
 
 async function fetchTodos() {
@@ -17,16 +17,18 @@ function App() {
   const todos = useSelector(todosDataSelector);
   // const [todos, setTodos] = useState([]);
   // const [newTodo, setNewTodo] = useState('ABC');
-  const [allChecked, setAllChecked] = useState(false);
+  // const [allChecked, setAllChecked] = useState(false);
+  const allChecked = useSelector(togglerCheckedAllSelector);
 
   // Exercice 5
   // Créer l'action updateEditingId
   // Modifier le reducer todosReducer pour gérer cet état
   // Faire le dispatch là où c'est nécessaire (où j'appelais setEditingId)
   // Ajouter un selecteur pour récupérer l'editingId
-  const [editingId, setEditingId] = useState(-1);
+  // const [editingId, setEditingId] = useState(-1);
 
   const newTodo = useSelector(newTodoSelector);
+  const editingId = useSelector(editingIdSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,10 +36,10 @@ function App() {
       // TODO Avancé : Récupérer la référence sur l'input avec
       // une ref et forward (jusqu'à 18) et une prop dans React 19+
       if (!event.target.classList.contains('todosInputValue')) {
-        // setEditingId(-1);
+        dispatch(setEditingId(-1));
       }
     });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetchTodos().then((newTodos) => {
@@ -45,7 +47,7 @@ function App() {
       // Créer un action creator setAllTodos
       // Ajouter un cas dans le reducer todosReducer qui reçoit payload et le retourne
       // Dispatcher ci-dessous l'action en passant par l'action creator
-      // dispatch(setAllTodos(newTodos));
+      dispatch(setAllTodos(newTodos));
     });
   }, [dispatch]);
 
@@ -72,7 +74,7 @@ function App() {
     // Ajouter un cas dans le reducer todosReducer qui reçoit payload et affecte ce booléen
     // à toutes les clés completed du tableau
     // Appeler l'action creator ici avec dispatch
-    // dispatch(toggleCompletedAllTodos(globalChecked))
+    dispatch(toggleCheckedAllTodo(e.target.checked))
     // setTodos(todos.map((todo) => ({ ...todo, completed: e.target.checked })));
   }
 
@@ -80,16 +82,18 @@ function App() {
     // Exercice 3
     // Supprimer la todos du store (à vous de trouver les étapes)
     // setTodos(todos.filter((t) => t.id !== todo.id));
+    dispatch(deleteTodo(todo));
   }
 
   function handleEdit(id) {
-    // setEditingId(id);
+    dispatch(setEditingId(id));
   }
 
   function handleUpdate(updatedTodo) {
     // Exercice 4
     // Editer la todo du store (à vous de trouver les étapes)
     // setTodos(todos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t)));
+    dispatch(updateTodo(updatedTodo));
   }
 
   return (

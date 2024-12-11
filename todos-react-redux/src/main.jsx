@@ -10,14 +10,14 @@ import { todosReducer } from './store/reducers.js'
 
 const store = configureStore({
   reducer: { // 👈 appelle combineReducer
-    todos: todosReducer
+    todos: todosReducer,
   }
 })
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>,
+  // </StrictMode>,
 )
