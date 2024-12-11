@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "hello-next"
+		},
+		{
+			"path": "hello-redux"
 		}
 	],
 	"settings": {}
