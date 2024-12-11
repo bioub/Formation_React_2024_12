@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "todos-react"
+		},
+		{
+			"path": "hello-next"
 		}
 	],
 	"settings": {}
